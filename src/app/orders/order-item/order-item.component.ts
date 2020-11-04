@@ -26,7 +26,7 @@ export class OrderItemComponent implements OnInit {
     private oder: OrderService
 
   ) { }
-  //  initialize value of function called AddOrEditItem to form(formDataItem)
+  //  initialize value of function called OpenDailogItem to form(formDataItem)
   ngOnInit(): void {
     this.itemService.getItemList().then(res => this.ItemFood = res as Item[]);
     if (this.data.orderItemIndex == null) {
@@ -62,8 +62,9 @@ export class OrderItemComponent implements OnInit {
   resultTotal() {
     this.formDataItem.Total = parseFloat((this.formDataItem.Quantity * this.formDataItem.Price).toFixed(2));
   }
-  //  this function about push or submit data to order component table
+  //   push orderItem data or submit data to order component in table
   onSubmit(form: NgModel) {
+     //  validate from data is found or empty
     if (this.isValidDataForm(form.value)) {
       // check value if new data or fill
       if (this.data.orderItemIndex == null) {

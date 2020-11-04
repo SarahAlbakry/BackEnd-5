@@ -1,3 +1,5 @@
+import { environment } from './../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +7,10 @@ import { Injectable } from '@angular/core';
 })
 export class CustomerService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getCustomerList()
+  {
+   return this.http.get(environment.apiUrl + '/Customers').toPromise();
+  }
 }

@@ -4,4 +4,5 @@ export class Order {
   GTotal:number;
   PMehtod :string;
   CustomerID :number;
+  DeleteOrderItemIDs:string;
 }

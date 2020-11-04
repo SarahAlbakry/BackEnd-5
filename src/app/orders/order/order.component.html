@@ -1,5 +1,6 @@
 <!-- table order  -->
-<form #form="ngForm" autocomplete="off" *ngIf="service.formData">
+<form #form="ngForm" autocomplete="off" *ngIf="service.formData" (ngSubmit)="onSubmit(form)" >
+  <input type="hidden" name="OrderID" #OrderID="ngModel" [(ngModel)]="service.formData.OrderID">
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
@@ -13,15 +14,18 @@
       </div>
       <div class="form-group">
         <label>Customer</label>
-        <select name="CustomerID" #CustomerID="ngModel" [(ngModel)]="service.formData.CustomerID" class="form-control">
+        <select name="CustomerID" #CustomerID="ngModel" [(ngModel)]="service.formData.CustomerID" class="form-control"
+        [class.is-invalid]="!isvalid && service.formData.CustomerID==0">
           <option value="0">-Select-</option>
+          <option *ngFor="let item of customerList" value="{{item.customerID}}">{{item.Name}}</option>
         </select>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label>Payment Method</label>
-        <select name="PMehtod" #PMehtod="ngModel" [(ngModel)]="service.formData.PMehtod" class="form-control">
+        <select name="PMehtod" #PMehtod="ngModel" [(ngModel)]="service.formData.PMehtod" class="form-control"
+        [class.is-invalid]="!isvalid && service.formData.PMehtod==''">
           <option value="">-Select-</option>
           <option value="Cash">Cash</option>
           <option value="Card">Card</option>
@@ -45,9 +49,9 @@
       <th>Price</th>
       <th>Quantity</th>
       <th>Total</th>
-      <th> <a class="btn btn-sm btn-success text text-white" (click)="AddOrEditItem(null,service.formData.OrderID)"><i class="fa fa-plus"></i> Add Item</a></th>
+      <th> <a class="btn btn-sm btn-success text text-white" (click)="OpenDailogItem(null,service.formData.OrderID)"><i class="fa fa-plus"></i> Add Item</a></th>
     </thead>
-    <tr *ngIf="service.orderItem.length==0">
+    <tr *ngIf="service.orderItem.length==0" [class.text-danger]="!isvalid && service.orderItem.length==0">
       <td class="font-italic text-center" colspan="5">
         No food item selected for this order.
       </td>
@@ -59,13 +63,14 @@
         <td>{{item.Quantity}}</td>
         <td>{{item.Total}}</td>
         <th>
-          <a class="btn btn-sm btn-info text text-white" (click)="AddOrEditItem(i,service.formData.OrderID)"><i class="fa fa-pencil"></i></a>
-          <a class="btn btn-sm btn-danger ml-1" (click)="onDeleteItem(service.orderItem,i)"><i class="fa fa-trash"></i></a>
+          <a class="btn btn-sm btn-info text text-white" (click)="OpenDailogItem(i,service.formData.OrderID)"><i class="fa fa-pencil"></i></a>
+          <a class="btn btn-sm btn-danger ml-1" (click)="onDeleteItem(item.OrderItemID,i)"><i class="fa fa-trash"></i></a>
         </th>
       </tr>
     </tbody>
   </table>
   <div class="form-group">
     <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+    <a routerLink="/orders" class="btn btn-outline-dark ml-1" ><i class="fa fa-table"> View Orders</i></a>
   </div>
 </form>

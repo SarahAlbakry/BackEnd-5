@@ -9,7 +9,11 @@ import { OrderComponent } from './orders/order/order.component';
 import { OrderItemComponent } from './orders/order-item/order-item.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { ConfirmDailogComponent } from './confirm-dailog/confirm-dailog.component';
+import { MaterialModule } from './material/material.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppComponent,
     OrdersComponent,
     OrderComponent,
-    OrderItemComponent
+    OrderItemComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -25,10 +30,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    HttpClientModule
-
+    HttpClientModule,
+    ToastrModule.forRoot(),
+    MaterialModule,
+    MatButtonModule
   ],
-  entryComponents:[OrderItemComponent],
+  entryComponents:[OrderItemComponent , ConfirmDailogComponent],
   providers: [OrderService],
   bootstrap: [AppComponent]
 })
